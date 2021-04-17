@@ -1,0 +1,248 @@
+object FormRelUsuario: TFormRelUsuario
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Imprimir Relat'#243'rio de Usu'#225'rios'
+  ClientHeight = 64
+  ClientWidth = 334
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object BitBtn1: TBitBtn
+    Left = 88
+    Top = 8
+    Width = 153
+    Height = 41
+    Caption = 'Visualizar'
+    DoubleBuffered = True
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentDoubleBuffered = False
+    ParentFont = False
+    TabOrder = 0
+    OnClick = BitBtn1Click
+  end
+  object qryUser: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT * FROM usuario')
+    SQLConnection = DM.conn
+    Left = 24
+    Top = 8
+    object qryUseremp_codigo: TIntegerField
+      FieldName = 'emp_codigo'
+    end
+    object qryUserusr_codigo: TIntegerField
+      FieldName = 'usr_codigo'
+      Required = True
+    end
+    object qryUserusr_nome: TStringField
+      FieldName = 'usr_nome'
+      Required = True
+      Size = 50
+    end
+    object qryUserusr_senha: TStringField
+      FieldName = 'usr_senha'
+      Required = True
+    end
+  end
+  object frxReportUser: TfrxReport
+    Version = '4.9'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 41401.716883680600000000
+    ReportOptions.LastChange = 41402.341088865740000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 80
+    Top = 8
+    Datasets = <
+      item
+        DataSet = frxDBDatasetUser
+        DataSetName = 'frxDBDataset1'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        Height = 64.252010000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          Align = baCenter
+          Left = 234.330860000000000000
+          Top = 11.338590000000000000
+          Width = 249.448980000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          AutoWidth = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Relat'#243'rio de Usu'#225'rios')
+          ParentFont = False
+        end
+        object Memo3: TfrxMemoView
+          Left = 102.047310000000000000
+          Top = 37.795300000000000000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'Nome Usu'#225'rio')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          Left = 11.338590000000000000
+          Top = 41.574830000000000000
+          Width = 71.811070000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'C'#243'digo')
+          ParentFont = False
+        end
+      end
+      object MasterData1: TfrxMasterData
+        Height = 26.456710000000000000
+        Top = 143.622140000000000000
+        Width = 718.110700000000000000
+        DataSet = frxDBDatasetUser
+        DataSetName = 'frxDBDataset1'
+        RowCount = 0
+        object frxDBDataset1usr_codigo: TfrxMemoView
+          Left = 11.338590000000000000
+          Top = 3.779529999999994000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          AutoWidth = True
+          DataField = 'usr_codigo'
+          DataSet = frxDBDatasetUser
+          DataSetName = 'frxDBDataset1'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."usr_codigo"]')
+          ParentFont = False
+        end
+        object frxDBDataset1usr_nome: TfrxMemoView
+          Left = 102.047310000000000000
+          Top = 3.779529999999994000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          AutoWidth = True
+          DataField = 'usr_nome'
+          DataSet = frxDBDatasetUser
+          DataSetName = 'frxDBDataset1'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."usr_nome"]')
+          ParentFont = False
+        end
+      end
+      object PageFooter1: TfrxPageFooter
+        Height = 22.677180000000000000
+        Top = 230.551330000000000000
+        Width = 718.110700000000000000
+        object SysMemo1: TfrxSysMemoView
+          Left = 11.338590000000000000
+          Width = 389.291590000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          Memo.UTF8W = (
+            'Quantidade de Registro : [COUNT(MasterData1)]')
+          ParentFont = False
+        end
+      end
+    end
+  end
+  object frxDBDatasetUser: TfrxDBDataset
+    UserName = 'frxDBDataset1'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'emp_codigo=emp_codigo'
+      'usr_codigo=usr_codigo'
+      'usr_nome=usr_nome'
+      'usr_senha=usr_senha')
+    DataSet = qryUser
+    BCDToCurrency = False
+    Left = 264
+  end
+  object frxPDFExport: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    Left = 176
+  end
+end

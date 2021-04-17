@@ -1,0 +1,34 @@
+unit uBanco;
+
+interface
+uses
+  DB, SqlExpr,uDM;
+
+  function fSEQUENCIAL(tabela:string;campo_chave:string):integer;
+
+implementation
+
+  function fSEQUENCIAL(tabela:string;campo_chave:string):integer;
+  var
+    qry : TSQLQuery;
+    sSQL : string;
+  begin
+
+    sSQL := '';
+    sSQL := sSQL + ' SELECT MAAX('+campo_chave+')';
+    sSQL := sSQL + '';
+    sSQL := sSQL + '';
+    sSQL := sSQL + '';
+    sSQL := sSQL + '';
+    sSQL := sSQL + '';
+
+
+
+
+
+
+
+
+  end;
+
+end.

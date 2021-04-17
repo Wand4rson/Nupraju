@@ -1,0 +1,29 @@
+object DM: TDM
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 149
+  Width = 202
+  object conn: TSQLConnection
+    ConnectionName = 'MySQLConnection'
+    DriverName = 'MySQL'
+    GetDriverFunc = 'getSQLDriverMYSQL'
+    LibraryName = 'dbxmys.dll'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverName=MySQL'
+      'HostName=localhost'
+      'Database=bd_nupraju'
+      'User_Name=root'
+      'Password='
+      'ConnectTimeout=60')
+    VendorLib = 'libmysql.dll'
+    Left = 88
+    Top = 24
+  end
+  object sqlMonitor: TSQLMonitor
+    AutoSave = True
+    FileName = 'C:\Nupraju\Auditoria\Auditoria.txt'
+    Left = 88
+    Top = 80
+  end
+end

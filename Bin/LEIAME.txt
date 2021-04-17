@@ -1,0 +1,2 @@
+Arquivos para Instalação
+Somente Criar um Diretorio no Disco Local C:\Nupraju e adicionar estes arquivos dentro com as devidas configurações do Banco de Dados.

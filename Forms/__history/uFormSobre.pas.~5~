@@ -1,0 +1,28 @@
+unit uFormSobre;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls;
+
+type
+  TFormSobre = class(TForm)
+    Label1: TLabel;
+    Shape1: TShape;
+    Label2: TLabel;
+    Label3: TLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormSobre: TFormSobre;
+
+implementation
+
+{$R *.dfm}
+
+end.

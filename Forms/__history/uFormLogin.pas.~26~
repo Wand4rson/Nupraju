@@ -1,0 +1,102 @@
+unit uFormLogin;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, ExtCtrls, dxGDIPlusClasses;
+
+type
+  TFormLogin = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    edt_usuario: TEdit;
+    edt_senha: TEdit;
+    Label3: TLabel;
+    Shape1: TShape;
+    Image1: TImage;
+    Panel1: TPanel;
+    btnCancelar: TBitBtn;
+    btnOk: TBitBtn;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure btnOkClick(Sender: TObject);
+    function fVerificaLogin(usuario, senha: string): Boolean;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormLogin: TFormLogin;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormLogin.btnCancelarClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TFormLogin.btnOkClick(Sender: TObject);
+begin
+ if trim(edt_usuario.Text)= '' then
+    begin
+      Application.MessageBox('Usuário Obrigatório !','Atenção',MB_OK+MB_ICONEXCLAMATION);
+      Abort;
+    end;
+
+
+  if trim(edt_senha.Text)= '' then
+    begin
+      Application.MessageBox('Senha Obrigatório !','Atenção',MB_OK+MB_ICONEXCLAMATION);
+      Abort;
+    end;
+
+    if fVerificaLogin(edt_usuario.Text,edt_senha.Text) = False then
+      begin
+        Application.MessageBox('Usuário/Senha Incorreto !','Atenção',MB_OK+MB_ICONEXCLAMATION);
+        Abort;
+      end;
+
+      ModalResult := mrOk;
+end;
+
+procedure TFormLogin.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(40, 0, 0);
+  end;
+
+  if Key = #27 then
+  begin
+    Key := #0;
+  end;
+
+end;
+
+//Senha dos Usuários Verificar//
+function TFormLogin.fVerificaLogin(usuario, senha: string): Boolean;
+var
+  sql: string;
+  res: string;
+begin
+
+  if usuario = 'ADMIN' then
+  begin
+    Result := True;
+    ModalResult := mrOk;
+  end
+  else
+    begin
+    Result := False;
+    ModalResult := mrCancel;
+  end;
+
+end;
+
+end.

@@ -1,0 +1,45 @@
+unit uFormRelUsuario;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, DB, SqlExpr, StdCtrls, Buttons, frxClass, frxDBSet,
+  frxExportPDF;
+
+type
+  TFormRelUsuario = class(TForm)
+    BitBtn1: TBitBtn;
+    qryUser: TSQLQuery;
+    qryUseremp_codigo: TIntegerField;
+    qryUserusr_codigo: TIntegerField;
+    qryUserusr_nome: TStringField;
+    qryUserusr_senha: TStringField;
+    frxDBDatasetUser: TfrxDBDataset;
+    qryUserusr_ativo: TStringField;
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormRelUsuario: TFormRelUsuario;
+
+implementation
+
+uses uDM;
+
+{$R *.dfm}
+
+procedure TFormRelUsuario.BitBtn1Click(Sender: TObject);
+  var
+  sCaminhoRel : string;
+begin
+   sCaminhoRel := 'C:\Nupraju\Reports\';
+   DM.frxReport.LoadFromFile(sCaminhoRel + 'relusuarios.fr3');
+   DM.frxReport.ShowReport;
+end;
+
+end.

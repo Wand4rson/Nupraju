@@ -1,0 +1,113 @@
+unit uFormUsuariosConsulta;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, Buttons, Grids, DBGrids, JvExDBGrids, JvDBGrid,
+  FMTBcd, DB, DBClient, Provider, SqlExpr;
+
+type
+  TFormUsuariosConsulta = class(TForm)
+    Panel1: TPanel;
+    JvDBGrid1: TJvDBGrid;
+    Panel2: TPanel;
+    btnSelecionar: TBitBtn;
+    btnSair: TBitBtn;
+    qry: TSQLQuery;
+    qryemp_codigo: TIntegerField;
+    qryusr_codigo: TIntegerField;
+    qryusr_nome: TStringField;
+    qryusr_senha: TStringField;
+    dsp: TDataSetProvider;
+    cds: TClientDataSet;
+    cdsemp_codigo: TIntegerField;
+    cdsusr_codigo: TIntegerField;
+    cdsusr_nome: TStringField;
+    cdsusr_senha: TStringField;
+    ds: TDataSource;
+    Label1: TLabel;
+    edt_buscar: TEdit;
+    BitBtn1: TBitBtn;
+    qryusr_ativo: TStringField;
+    procedure btnSairClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure btnSelecionarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    codigo_empresa:integer;
+    codigo_usuario:integer;
+  end;
+
+var
+  FormUsuariosConsulta: TFormUsuariosConsulta;
+
+implementation
+
+uses uDM, uLibs;
+
+{$R *.dfm}
+
+procedure TFormUsuariosConsulta.BitBtn1Click(Sender: TObject);
+  var
+  sSQL : string;
+begin
+
+  sSQL := '';
+  sSQL := sSQL + ' SELECT';
+  sSQL := sSQL + '  emp_codigo,';
+  sSQL := sSQL + '  usr_codigo,';
+  sSQL := sSQL + '  usr_nome,';
+  sSQL := sSQL + '  usr_senha,';
+  sSQL := sSQL + '  usr_ativo';
+  sSQL := sSQL + ' FROM';
+  sSQL := sSQL + '  usuario';
+  sSQL := sSQL + ' WHERE';
+  sSQL := sSQL + '  emp_codigo='+IntToStr(EMPRESA)+' AND';
+  sSQL := sSQL + '  usr_nome LIKE'+QuotedStr('%'+edt_buscar.Text+'%')+'';
+
+  try
+    qry.Close;
+    cds.close;
+    qry.SQL.Clear;
+    qry.SQL.Add(sSQL);
+    cds.Open;
+  except
+    cds.Close;
+  end;
+
+end;
+
+procedure TFormUsuariosConsulta.btnSairClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TFormUsuariosConsulta.btnSelecionarClick(Sender: TObject);
+begin
+  if cds.RecordCount = 0 then
+    Abort;
+
+    codigo_empresa := cdsemp_codigo.AsInteger;
+    codigo_usuario := cdsusr_codigo.AsInteger;
+
+    ModalResult := mrOk;
+
+end;
+
+procedure TFormUsuariosConsulta.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  cds.Close;
+end;
+
+procedure TFormUsuariosConsulta.FormShow(Sender: TObject);
+begin
+  cds.Open;
+end;
+
+end.

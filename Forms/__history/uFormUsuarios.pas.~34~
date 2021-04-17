@@ -1,0 +1,148 @@
+unit uFormUsuarios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Buttons, FMTBcd, DB, SqlExpr, Provider, DBClient,
+  Mask, DBCtrls;
+
+type
+  TFormUsuarios = class(TForm)
+    Shape1: TShape;
+    Label1: TLabel;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    btnNovo: TBitBtn;
+    btnSalvar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnExcluir: TBitBtn;
+    btnSair: TBitBtn;
+    btnPesquisar: TBitBtn;
+    qry: TSQLQuery;
+    qryemp_codigo: TIntegerField;
+    qryusr_codigo: TIntegerField;
+    qryusr_nome: TStringField;
+    qryusr_senha: TStringField;
+    dsp: TDataSetProvider;
+    cds: TClientDataSet;
+    cdsemp_codigo: TIntegerField;
+    cdsusr_codigo: TIntegerField;
+    cdsusr_nome: TStringField;
+    cdsusr_senha: TStringField;
+    Label2: TLabel;
+    dbe_codigo: TDBEdit;
+    ds: TDataSource;
+    Label3: TLabel;
+    dbe_nome: TDBEdit;
+    Label4: TLabel;
+    dbe_senha: TDBEdit;
+    procedure btnSairClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure cdsNewRecord(DataSet: TDataSet);
+    procedure dsStateChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormUsuarios: TFormUsuarios;
+
+implementation
+
+uses uDM, uLibs, uBanco;
+
+{$R *.dfm}
+
+procedure TFormUsuarios.btnCancelarClick(Sender: TObject);
+begin
+  cds.Cancel;
+end;
+
+procedure TFormUsuarios.btnExcluirClick(Sender: TObject);
+begin
+    if cds.RecordCount = 0 then
+    Abort;
+
+    if Application.MessageBox('Deseja excluir o Registro selecionado ?','Atenção',MB_YESNO+MB_ICONQUESTION) = mrNo then
+      Abort;
+
+    cds.Delete;
+    cds.ApplyUpdates(0);
+
+end;
+
+procedure TFormUsuarios.btnNovoClick(Sender: TObject);
+begin
+  cds.Append;
+end;
+
+procedure TFormUsuarios.btnSairClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TFormUsuarios.btnSalvarClick(Sender: TObject);
+begin
+
+  if cdsemp_codigo.AsString = EmptyStr then
+    begin
+      Application.MessageBox('Campo Empresa Obrigatório !','Atenção',MB_OK+MB_ICONERROR);
+      Abort;
+    end;
+
+    if cdsusr_codigo.AsString = EmptyStr then
+    begin
+      Application.MessageBox('Campo Código Usuário Obrigatório !','Atenção',MB_OK+MB_ICONERROR);
+      Abort;
+    end;
+
+    if cdsusr_nome.AsString = EmptyStr then
+    begin
+      Application.MessageBox('Campo Nome Usuário Obrigatório !','Atenção',MB_OK+MB_ICONERROR);
+      Abort;
+    end;
+
+    if cdsusr_senha.AsString = EmptyStr then
+    begin
+      Application.MessageBox('Campo Senha Usuário Obrigatório !','Atenção',MB_OK+MB_ICONERROR);
+      Abort;
+    end;
+
+  cds.Post;
+  cds.ApplyUpdates(0);
+
+end;
+
+procedure TFormUsuarios.cdsNewRecord(DataSet: TDataSet);
+begin
+  cdsemp_codigo.AsInteger := EMPRESA;
+  cdsusr_codigo.AsInteger := fSEQUENCIAL('usuario','usr_codigo');
+end;
+
+procedure TFormUsuarios.dsStateChange(Sender: TObject);
+begin
+  btnNovo.Enabled := not (ds.State in dsEditModes); //Nao Esta em Edicao Ativa
+  btnSalvar.Enabled := (ds.State in dsEditModes); //Esta Em Edicao Ativa
+  btnCancelar.Enabled := (ds.State in dsEditModes); //Esta Em Edicao Ativa
+  btnExcluir.Enabled := not (ds.State in dsEditModes); //Esta Em Edicao Ativa
+end;
+
+procedure TFormUsuarios.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  cds.Close;
+end;
+
+procedure TFormUsuarios.FormShow(Sender: TObject);
+begin
+  cds.Open;
+end;
+
+end.
